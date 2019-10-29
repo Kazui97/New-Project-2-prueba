@@ -20,6 +20,10 @@ public class enemigo : MonoBehaviour
 
     void Update()
     {
+        if (gameObject.transform.position.y >= 75)
+        {
+            gameObject.transform.position -= new Vector3(0, 2 * Time.deltaTime, 0);
+        }
         if (gameObject.transform.position.x <= 75)
         {
             mov *= 1;

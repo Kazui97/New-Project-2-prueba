@@ -5,10 +5,11 @@ using UnityEngine;
 public class enemigo : MonoBehaviour
 {
     Vector3 pos = new Vector3 (0,0,0);
-    int mov = 5;
+    int mov = 20;
+    int m;
     void Start()
     {
-        
+        m = Random.Range(0,1);
         
     }
 
@@ -20,6 +21,7 @@ public class enemigo : MonoBehaviour
 
     void Update()
     {
+        
         if (gameObject.transform.position.y >= 75)
         {
             gameObject.transform.position -= new Vector3(0, 2 * Time.deltaTime, 0);

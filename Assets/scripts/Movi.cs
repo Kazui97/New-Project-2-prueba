@@ -5,6 +5,8 @@ using UnityEngine;
 public class Movi : MonoBehaviour
 {
     public float vel = 20;
+    public GameObject bala;
+
     void Start()
     {
         
@@ -37,6 +39,14 @@ public class Movi : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            bala = Instantiate(bala, gameObject.transform);
+            bala.transform.position = gameObject.transform.position;
+            bala.transform.parent = null;
+        }
+        bala.transform.position += new Vector3(0, 10, 0);
+
         Movimiento();
     }
 }

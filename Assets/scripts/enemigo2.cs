@@ -107,7 +107,7 @@ public class enemigo2 : MonoBehaviour
             }
         }
 
-        print(temp);
+        //print(temp);
 
     }
 }

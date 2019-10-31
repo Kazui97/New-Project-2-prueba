@@ -9,9 +9,10 @@ public class Movi : MonoBehaviour
 
     void Start()
     {
-        
+       
     }
 
+   
     public void Movimiento()
     {
         if ( Input.GetKey(KeyCode.W))
@@ -36,7 +37,8 @@ public class Movi : MonoBehaviour
           //   transform.rotation = Quaternion.Euler(Vector3.Lerp(transform.rotation.eulerAngles, Vector3.up * 100, Time.deltaTime));
         //}
     }
-
+    
+   
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -44,9 +46,10 @@ public class Movi : MonoBehaviour
             bala = Instantiate(bala, gameObject.transform);
             bala.transform.position = gameObject.transform.position;
             bala.transform.parent = null;
+            bala.name = "bala";
         }
-        bala.transform.position += new Vector3(0, 10, 0);
-
+        //bala.transform.position += new Vector3(0, 10, 0);
+        
         Movimiento();
     }
 }

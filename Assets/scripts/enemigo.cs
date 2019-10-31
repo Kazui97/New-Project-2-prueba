@@ -8,6 +8,7 @@ public class enemigo : MonoBehaviour
     int mov = 15;
     int m;
     int movVert = -20;
+    float vida = 100;
 
     void Start()
     {
@@ -20,6 +21,14 @@ public class enemigo : MonoBehaviour
         StartCoroutine("nelly");
     }
 
+    void Vida()
+    {
+        
+        if ()
+        {
+            
+        }
+    }
     IEnumerator nelly()
     {
         while (true)
@@ -30,6 +39,19 @@ public class enemigo : MonoBehaviour
     }
 
 
+    public void OnCollisionEnter(Collision col)
+        {
+            if (col.gameObject.GetComponent<bala>())
+            {   
+                if (vida == 0)
+                {
+                    Destroy(gameObject);
+                }
+                Debug.Log ("di puto");
+                
+                
+            }
+        }
     public void Moverenemigo()
     {
        if ( m == 0)

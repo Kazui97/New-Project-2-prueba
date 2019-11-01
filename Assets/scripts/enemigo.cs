@@ -9,6 +9,7 @@ public class enemigo : MonoBehaviour
     int m;
     int movVert = -20;
     float vida = 100;
+    
 
     void Start()
     {
@@ -21,14 +22,7 @@ public class enemigo : MonoBehaviour
         StartCoroutine("nelly");
     }
 
-    void Vida()
-    {
-        
-        if ()
-        {
-            
-        }
-    }
+    
     IEnumerator nelly()
     {
         while (true)
@@ -43,70 +37,34 @@ public class enemigo : MonoBehaviour
         {
             if (col.gameObject.GetComponent<bala>())
             {   
+                vida -= 10;
+                
                 if (vida == 0)
                 {
-                    Destroy(gameObject);
+                    StopCoroutine("nelly");
+                    gameObject.transform.position = new Vector3 (Random.Range(-75,75), 100, 0);
+                    movVert = -20;
+                    vida = 100; 
+                    if (true)
+                    {
+                        Invoke("LLamaCorru", 2.5f);
+                    }
+                    
+                   // gameObject.transform.position += new Vector3(0, movVert + -20 * Time.deltaTime , 0);
+                   // Destroy(gameObject);
+                   // Debug.Log ("exploto :v");
                 }
-                Debug.Log ("di puto");
+                Debug.Log(vida);
                 
                 
             }
         }
     public void Moverenemigo()
     {
-       if ( m == 0)
-       {
-            if (gameObject.transform.position.y >= 75)
-            {
-                gameObject.transform.position -= new Vector3(0, 10 * Time.deltaTime, 0);
-            }
-            if (gameObject.transform.position.x <= 75)
-            {
-                mov *= 1;
-                if (gameObject.transform.position.x <= -75)
-                {
-                    mov *= -1;
-                }
-            }
-            else
-            {
-                mov *= -1;
-            }
-            gameObject.transform.position -= new Vector3(mov * Time.deltaTime, 0, 0);
-
-       }
-       else if (m == 1)
-        {
-            if (gameObject.transform.position.y <= 75)
-            {
-                gameObject.transform.position += new Vector3(0, 10 * Time.deltaTime, 0);
-            }
-            if (gameObject.transform.position.x >= 75)
-            {
-                mov *= -1;
-                if (gameObject.transform.position.x >= -75)
-                {
-                    mov *= 1;
-                }
-            }
-            else
-            {
-                mov *= 1;
-            }
-            gameObject.transform.position += new Vector3(mov * Time.deltaTime, 0, 0);
-
-        }
-
 
     }
-
-    void Update()
+    public void MovimientoEnemigo()
     {
-        int temp =(int) Time.timeSinceLevelLoad;
-        if (temp >= 90)
-        {
-
-        }
         gameObject.transform.position += new Vector3(0, movVert * Time.deltaTime, 0);
 
         if (gameObject.transform.position.x <= 75)
@@ -128,7 +86,21 @@ public class enemigo : MonoBehaviour
         {
             gameObject.transform.position -= new Vector3(mov * Time.deltaTime, 0, 0);
         }
+        if (vida <= 25)
+        {
+            movVert = -50;
+            gameObject.transform.position += new Vector3 ( 0, movVert* Time.deltaTime,0);
+        }
+        if (gameObject.transform.position.y <= -110)
+        {
+            gameObject.transform.position = new Vector3 (Random.Range(-75,75), 100, 0);
+           
+        }
+    }
+    void Update()
+    {
         
+        MovimientoEnemigo();
 
     }
 }

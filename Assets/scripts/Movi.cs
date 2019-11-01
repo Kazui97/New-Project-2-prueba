@@ -6,6 +6,8 @@ public class Movi : MonoBehaviour
 {
     public float vel = 20;
     public GameObject bala;
+    public GameObject canon;
+    GameObject balas;
 
     void Start()
     {
@@ -32,10 +34,10 @@ public class Movi : MonoBehaviour
         {
              transform.position += transform.up * vel * Time.deltaTime;
         }
-       // if (Input.GetKey(KeyCode.Space))
-        //{
-          //   transform.rotation = Quaternion.Euler(Vector3.Lerp(transform.rotation.eulerAngles, Vector3.up * 100, Time.deltaTime));
-        //}
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            transform.rotation = Quaternion.Euler(Vector3.Lerp(transform.rotation.eulerAngles, Vector3.up * 100, Time.deltaTime));
+        }
     }
     
    
@@ -43,12 +45,26 @@ public class Movi : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            bala = Instantiate(bala, gameObject.transform);
-            bala.transform.position = gameObject.transform.position;
-            bala.transform.parent = null;
-            bala.name = "bala";
+
+            balas = Instantiate(bala , canon.GetComponent<Transform>().position,Quaternion.identity);
+//            balas.AddComponent<Rigidbody>().AddForce(transform.up*2000);
+            balas.transform.parent = null;
+            balas.name = "balas";
+            Destroy(balas, 1.5f);
+
+
+
+           // bala = Instantiate(bala, gameObject.transform);   //-------------------------- forma que no borra balas :,v --------------------------- \\
+            // bala.transform.position = gameObject.transform.position;
+           // bala.transform.parent = null;
+           // bala.name = "bala";
+            //Destroy(bala,1.5f);
         }
         //bala.transform.position += new Vector3(0, 10, 0);
+        
+        
+           
+          
         
         Movimiento();
     }

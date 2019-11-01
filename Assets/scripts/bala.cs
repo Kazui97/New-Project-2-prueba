@@ -9,14 +9,6 @@ public class bala : MonoBehaviour
         
     }
 
-  public void OnCollisionEnter(Collision col)
-        {
-            if (col.transform.tag == "cubo")
-            {
-                Debug.Log ("di puto");
-            }
-        }
-   
     void Update()
     {
         transform.position += new Vector3(0, 10, 0);

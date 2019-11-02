@@ -8,6 +8,13 @@ public class Movi : MonoBehaviour
     public GameObject bala;
     public GameObject canon;
     GameObject balas;
+    public AudioClip sonidobala;
+
+    AudioSource audiobala;
+    private void Awake()
+    {
+        audiobala = GetComponent<AudioSource>();
+    }
 
     void Start()
     {
@@ -25,6 +32,7 @@ public class Movi : MonoBehaviour
         if (Input.GetKey(KeyCode.S))
         {
             transform.position-= transform.right * vel * Time.deltaTime;
+            
         }
         if (Input.GetKey(KeyCode.A))
         {
@@ -38,6 +46,10 @@ public class Movi : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(Vector3.Lerp(transform.rotation.eulerAngles, Vector3.up * 100, Time.deltaTime));
         }
+        if (gameObject.transform.position.y <= -74f)
+        {
+            Destroy(this.gameObject);
+        }
     }
     
    
@@ -45,7 +57,7 @@ public class Movi : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-
+            audiobala.PlayOneShot(sonidobala);
             balas = Instantiate(bala , canon.GetComponent<Transform>().position,Quaternion.identity);
 //            balas.AddComponent<Rigidbody>().AddForce(transform.up*2000);
             balas.transform.parent = null;

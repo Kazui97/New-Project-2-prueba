@@ -9,17 +9,30 @@ public class enemigo : MonoBehaviour
     int m;
     int movVert = -20;
     float vida = 100;
+    public GameObject bala;
+    public GameObject canon;
+    GameObject balasenemigas;
+    public ParticleSystem humo;
     
 
+    private void Awake()
+    {
+        humo.Stop();
+    }
     void Start()
     {
+       
         m = Random.Range(0,2);
         Invoke("LLamaCorru", 2.5f);
+        // StartCoroutine("Balin");
+        InvokeRepeating("DisparoEnemigo", 1f, 1f);
+
     }
 
     void LLamaCorru()
     {
         StartCoroutine("nelly");
+       
     }
 
     
@@ -31,7 +44,11 @@ public class enemigo : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
         }
     }
-
+    IEnumerator Balin()
+    {
+        DisparoEnemigo();
+        yield return new WaitForSeconds(2f);
+    }
 
     public void OnCollisionEnter(Collision col)
         {
@@ -44,7 +61,8 @@ public class enemigo : MonoBehaviour
                     StopCoroutine("nelly");
                     gameObject.transform.position = new Vector3 (Random.Range(-75,75), 100, 0);
                     movVert = -20;
-                    vida = 100; 
+                    vida = 100;
+                    humo.Stop();
                     if (true)
                     {
                         Invoke("LLamaCorru", 2.5f);
@@ -59,9 +77,13 @@ public class enemigo : MonoBehaviour
                 
             }
         }
-    public void Moverenemigo()
+    public void DisparoEnemigo()
     {
-
+        balasenemigas = Instantiate(bala, canon.GetComponent<Transform>().position, Quaternion.identity);
+        //balasenemigas.AddComponent<Rigidbody>().AddForce(transform.up* 2000);
+        balasenemigas.transform.parent = null;
+        balasenemigas.name = "balasenemigas";
+        Destroy(balasenemigas, 1.5f);
     }
     public void MovimientoEnemigo()
     {
@@ -89,6 +111,7 @@ public class enemigo : MonoBehaviour
         if (vida <= 25)
         {
             movVert = -50;
+            Humoplay();
             gameObject.transform.position += new Vector3 ( 0, movVert* Time.deltaTime,0);
         }
         if (gameObject.transform.position.y <= -110)
@@ -101,6 +124,18 @@ public class enemigo : MonoBehaviour
     {
         
         MovimientoEnemigo();
+         //DisparoEnemigo() ;
+       
+    }
 
+    void Humoplay()
+    {
+       
+        humo.Play();
+    }
+    void Humostop()
+    {
+        
+        humo.Stop();
     }
 }

@@ -14,8 +14,9 @@ public class enemigo : MonoBehaviour
     public GameObject canon;
     GameObject balasenemigas;
     public ParticleSystem humo;
+    public AudioClip balaE;
     //public ParticleSystem explocion;
-    
+    AudioSource balaenemigo;
 
     private void Awake()
     {
@@ -26,7 +27,7 @@ public class enemigo : MonoBehaviour
        
         m = Random.Range(0,2);
         Invoke("LLamaCorru", 2.5f);
-        // StartCoroutine("Balin");
+        balaenemigo = GetComponent<AudioSource>();
         InvokeRepeating("DisparoEnemigo", 1f, 1f);
 
     }
@@ -94,8 +95,8 @@ public class enemigo : MonoBehaviour
     public void DisparoEnemigo()
     {
         balasenemigas = Instantiate(bala, canon.GetComponent<Transform>().position, Quaternion.identity);
-        //balasenemigas.AddComponent<Rigidbody>().AddForce(transform.up* 2000);
         balasenemigas.transform.parent = null;
+       // balaenemigo.PlayOneShot(balaE);
         balasenemigas.name = "balasenemigas";
         Destroy(balasenemigas, 1.5f);
     }

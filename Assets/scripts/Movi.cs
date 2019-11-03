@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Movi : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class Movi : MonoBehaviour
     public GameObject canon;
     GameObject balas;
     public AudioClip sonidobala;
+    public Text vida;
+    int vidasrestantes = 3;
 
     AudioSource audiobala;
     private void Awake()
@@ -18,13 +21,37 @@ public class Movi : MonoBehaviour
 
     void Start()
     {
-       
+        vida.text = "vidas:  " + vidasrestantes;
     }
     public void OnCollisionEnter(Collision col)
     {
+        if (col.gameObject.GetComponent<misiles>())
+        {
+            vidasrestantes--;
+            ActualizardorUI();
+        }
+        if(col.gameObject.GetComponent<enemigo>())
+        {
+            vidasrestantes--;
+            ActualizardorUI();
+        }
+        if(col.gameObject.GetComponent<enemigo2>())
+        {
+            vidasrestantes--;
+            ActualizardorUI();
+        }
+        if(col.gameObject.GetComponent<balaenemiga>())
+        {
+            vidasrestantes--;
+            ActualizardorUI();
+        }
+       
        // Destroy(this.gameObject);
     }
-
+    void ActualizardorUI()
+    {
+        vida.text = "vidas:  " + vidasrestantes;
+    }
 
     public void Movimiento()
     {

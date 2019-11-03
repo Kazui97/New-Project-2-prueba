@@ -11,7 +11,7 @@ public class bala : MonoBehaviour
 
     public void OnCollisionEnter(Collision col)
     {
-       if (col.gameObject.GetComponent<enemigo>() && col.gameObject.GetComponent<enemigo2>())
+       if (col.gameObject.GetComponent<enemigo>() )
         {
             Destroy(this.gameObject);
         }

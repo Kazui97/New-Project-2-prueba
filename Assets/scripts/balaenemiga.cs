@@ -13,6 +13,6 @@ public class balaenemiga : MonoBehaviour
 
     void Update()
     {
-        transform.position += new Vector3(0, -10, 0);
+        transform.position += new Vector3(0, -5 , 0);
     }
 }

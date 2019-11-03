@@ -8,16 +8,18 @@ public class enemigo : MonoBehaviour
     int mov = 15;
     int m;
     int movVert = -20;
+    int vidasreset = 5;
     float vida = 100;
     public GameObject bala;
     public GameObject canon;
     GameObject balasenemigas;
     public ParticleSystem humo;
+    //public ParticleSystem explocion;
     
 
     private void Awake()
     {
-        humo.Stop();
+        
     }
     void Start()
     {
@@ -51,18 +53,30 @@ public class enemigo : MonoBehaviour
     }
 
     public void OnCollisionEnter(Collision col)
-        {
+    {
             if (col.gameObject.GetComponent<bala>())
             {   
                 vida -= 10;
                 
                 if (vida == 0)
                 {
+                 
+                    if(vida == 0)
+                    {
+                       // explocion.Stop();
+                        humo.Stop();
+                        vidasreset --;
+                        if (vidasreset == 0)
+                        {
+                            //explocion.Play();
+                             Destroy(this.gameObject);
+                        }
+                    }
                     StopCoroutine("nelly");
                     gameObject.transform.position = new Vector3 (Random.Range(-75,75), 100, 0);
                     movVert = -20;
+                   // humo.Stop();
                     vida = 100;
-                    humo.Stop();
                     if (true)
                     {
                         Invoke("LLamaCorru", 2.5f);
@@ -72,11 +86,11 @@ public class enemigo : MonoBehaviour
                    // Destroy(gameObject);
                    // Debug.Log ("exploto :v");
                 }
-                Debug.Log(vida);
+            Debug.Log(vidasreset);
                 
-                
+               
             }
-        }
+    }
     public void DisparoEnemigo()
     {
         balasenemigas = Instantiate(bala, canon.GetComponent<Transform>().position, Quaternion.identity);
@@ -108,12 +122,17 @@ public class enemigo : MonoBehaviour
         {
             gameObject.transform.position -= new Vector3(mov * Time.deltaTime, 0, 0);
         }
+        if (vida <= 50)
+        {
+            humo.Play();
+        }
         if (vida <= 25)
         {
             movVert = -50;
-            Humoplay();
             gameObject.transform.position += new Vector3 ( 0, movVert* Time.deltaTime,0);
         }
+       
+       
         if (gameObject.transform.position.y <= -110)
         {
             gameObject.transform.position = new Vector3 (Random.Range(-75,75), 100, 0);
@@ -128,14 +147,5 @@ public class enemigo : MonoBehaviour
        
     }
 
-    void Humoplay()
-    {
-       
-        humo.Play();
-    }
-    void Humostop()
-    {
-        
-        humo.Stop();
-    }
+    
 }

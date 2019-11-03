@@ -20,8 +20,12 @@ public class Movi : MonoBehaviour
     {
        
     }
+    public void OnCollisionEnter(Collision col)
+    {
+       // Destroy(this.gameObject);
+    }
 
-   
+
     public void Movimiento()
     {
         if ( Input.GetKey(KeyCode.W))

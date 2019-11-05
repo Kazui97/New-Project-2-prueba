@@ -47,11 +47,6 @@ public class enemigo : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
         }
     }
-    IEnumerator Balin()
-    {
-        DisparoEnemigo();
-        yield return new WaitForSeconds(2f);
-    }
 
     public void OnCollisionEnter(Collision col)
     {
@@ -104,9 +99,9 @@ public class enemigo : MonoBehaviour
     {
         gameObject.transform.position += new Vector3(0, movVert * Time.deltaTime, 0);
 
-        if (gameObject.transform.position.x <= 75)
+        if (gameObject.transform.position.x <= 120)
         {
-            if (gameObject.transform.position.x <= -75)
+            if (gameObject.transform.position.x <= -120)
             {
                 mov *= -1;
             }

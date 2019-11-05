@@ -16,7 +16,7 @@ public class enemigo2 : MonoBehaviour
   //  public GameObject canon2;
     GameObject balasenemigas;
     public ParticleSystem fuego;
-    public ParticleSystem humo;
+    //public ParticleSystem humo;
 
 
     void Start()
@@ -43,54 +43,8 @@ public class enemigo2 : MonoBehaviour
         }
     }
 
-    void DisparoEnenmigo()
-    {
-        balasenemigas = Instantiate(bala, canon1.GetComponent<Transform>().position, Quaternion.identity);
-       // balasenemigas = Instantiate(bala ,canon2.GetComponent<Transform>().position, Quaternion.identity);
-        balasenemigas.transform.parent = null;
-        balasenemigas.name = "balasEnemigas2";
-        Destroy(balasenemigas, 1.5f);
-    }
-    public void Moverenemigo()
-    {
-        temp = (int)Time.timeSinceLevelLoad;
-        if (temp >= 30)
-        {
-            gameObject.transform.position += new Vector3(0, movVert * Time.deltaTime, 0);
-            
 
-            if (gameObject.transform.position.x <= 75)
-            {
-                if (gameObject.transform.position.x <= -75)
-                {
-                    mov *= -1;
-                }
-            }
-            else
-            {
-                mov *= -1;
-            }
-            if (m == 0)
-            {
-                gameObject.transform.position += new Vector3(mov * Time.deltaTime, 0, 0);
-            }
-            else
-            {
-                gameObject.transform.position -= new Vector3(mov * Time.deltaTime, 0, 0);
-            }
-            if(vida <= 50)
-            {
-                humo.Play();
-            }
-            if (vida <= 35)
-            {
-                fuego.Play();
-            }
-        }
-
-
-    }
-    public void OnCollisionEnter(Collision col)
+     public void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.GetComponent<bala>())
         {
@@ -100,7 +54,7 @@ public class enemigo2 : MonoBehaviour
             {
                 if (vida == 0)
                 {
-                    humo.Stop();
+                   // humo.Stop();
                     fuego.Stop();
                     vidarestantes--;
                     if (vidarestantes == 0)
@@ -128,6 +82,52 @@ public class enemigo2 : MonoBehaviour
 
         }
     }
+    void DisparoEnenmigo()
+    {
+        balasenemigas = Instantiate(bala, canon1.GetComponent<Transform>().position, Quaternion.identity);
+       // balasenemigas = Instantiate(bala ,canon2.GetComponent<Transform>().position, Quaternion.identity);
+        balasenemigas.transform.parent = null;
+        balasenemigas.name = "balasEnemigas2";
+        Destroy(balasenemigas, 1.5f);
+    }
+    public void Moverenemigo()
+    {
+        temp = (int)Time.timeSinceLevelLoad;
+        if (temp >= 30)
+        {
+            gameObject.transform.position += new Vector3(0, movVert * Time.deltaTime, 0);
+            
+
+            if (gameObject.transform.position.x <= 100)
+            {
+                if (gameObject.transform.position.x <= -100)
+                {
+                    mov *= -1;
+                }
+            }
+            else
+            {
+                mov *= -1;
+            }
+            if (m == 0)
+            {
+                gameObject.transform.position += new Vector3(mov * Time.deltaTime, 0, 0);
+            }
+            else
+            {
+                gameObject.transform.position -= new Vector3(mov * Time.deltaTime, 0, 0);
+            }
+            if(vida <= 50)
+            {
+                fuego.Play();
+                //humo.Play();
+            }
+           
+        }
+
+
+    }
+   
     void Update()
     {
        

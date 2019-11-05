@@ -12,6 +12,7 @@ public class Movi : MonoBehaviour
     public AudioClip sonidobala;
     public Text vida;
     int vidasrestantes = 3;
+    public bool puedehacerdaño = true;
 
     AudioSource audiobala;
     private void Awake()
@@ -22,34 +23,53 @@ public class Movi : MonoBehaviour
     void Start()
     {
         vida.text = "vidas:  " + vidasrestantes;
+        
     }
     public void OnCollisionEnter(Collision col)
     {
+        if (!puedehacerdaño)
+        return;
         if (col.gameObject.GetComponent<misiles>())
         {
+            puedehacerdaño = false;
+            Invoke("ActivarDaño",3);
             vidasrestantes--;
             ActualizardorUI();
         }
         if(col.gameObject.GetComponent<enemigo>())
         {
+            puedehacerdaño = false;
+            Invoke("ActivarDaño",3);
             vidasrestantes--;
             ActualizardorUI();
         }
         if(col.gameObject.GetComponent<enemigo2>())
         {
+            puedehacerdaño = false;
+            Invoke("ActivarDaño",3);
             vidasrestantes--;
             ActualizardorUI();
         }
         if(col.gameObject.GetComponent<balaenemiga>())
         {
+            puedehacerdaño = false;
+            Invoke("ActivarDaño",3);
             vidasrestantes--;
             ActualizardorUI();
         }
        
        // Destroy(this.gameObject);
     }
+    void ActivarDaño()
+    {
+        puedehacerdaño = true;
+    }
     void ActualizardorUI()
     {
+         if (vidasrestantes < 0)
+        {
+            vidasrestantes = 0;
+        }
         vida.text = "vidas:  " + vidasrestantes;
     }
 

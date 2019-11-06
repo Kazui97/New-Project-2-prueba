@@ -10,6 +10,8 @@ public class Movi : MonoBehaviour
     public GameObject canon;
     GameObject balas;
     public AudioClip sonidobala;
+    public ParticleSystem escudo;
+    public ParticleSystem chispas;
     public Text vida;
     int vidasrestantes = 3;
     public bool puedehacerdaño = true;
@@ -31,6 +33,7 @@ public class Movi : MonoBehaviour
         return;
         if (col.gameObject.GetComponent<misiles>())
         {
+            escudo.Play();
             puedehacerdaño = false;
             Invoke("ActivarDaño",3);
             vidasrestantes--;
@@ -38,6 +41,7 @@ public class Movi : MonoBehaviour
         }
         if(col.gameObject.GetComponent<enemigo>())
         {
+            escudo.Play();
             puedehacerdaño = false;
             Invoke("ActivarDaño",3);
             vidasrestantes--;
@@ -45,6 +49,7 @@ public class Movi : MonoBehaviour
         }
         if(col.gameObject.GetComponent<enemigo2>())
         {
+            escudo.Play();
             puedehacerdaño = false;
             Invoke("ActivarDaño",3);
             vidasrestantes--;
@@ -52,6 +57,7 @@ public class Movi : MonoBehaviour
         }
         if(col.gameObject.GetComponent<balaenemiga>())
         {
+            escudo.Play();
             puedehacerdaño = false;
             Invoke("ActivarDaño",3);
             vidasrestantes--;
@@ -63,6 +69,7 @@ public class Movi : MonoBehaviour
     void ActivarDaño()
     {
         puedehacerdaño = true;
+        escudo.Stop();
     }
     void ActualizardorUI()
     {
@@ -109,13 +116,14 @@ public class Movi : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             audiobala.PlayOneShot(sonidobala);
+            chispas.Play();
             balas = Instantiate(bala , canon.GetComponent<Transform>().position,Quaternion.identity);
 //            balas.AddComponent<Rigidbody>().AddForce(transform.up*2000);
             balas.transform.parent = null;
             balas.name = "balas";
             Destroy(balas, 1.5f);
 
-
+        
 
            // bala = Instantiate(bala, gameObject.transform);   //-------------------------- forma que no borra balas :,v --------------------------- \\
             // bala.transform.position = gameObject.transform.position;

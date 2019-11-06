@@ -15,7 +15,7 @@ public class enemigo : MonoBehaviour
     GameObject balasenemigas;
     public ParticleSystem humo;
     public AudioClip balaE;
-    //public ParticleSystem explocion;
+    public ParticleSystem explocion;
     AudioSource balaenemigo;
 
     private void Awake()
@@ -50,48 +50,52 @@ public class enemigo : MonoBehaviour
 
     public void OnCollisionEnter(Collision col)
     {
-            if (col.gameObject.GetComponent<bala>())
-            {   
-                vida -= 10;
+        if (col.gameObject.GetComponent<bala>())
+        {   
+            vida -= 10;
                 
-                if (vida == 0)
+            if (vida == 0)
+            {
+                
+                if(vida == 0)
                 {
-                 
-                    if(vida == 0)
+                    explocion.Stop();
+                    humo.Stop();
+                    vidasreset --;
+                    if (vidasreset == 0)
                     {
-                       // explocion.Stop();
-                        humo.Stop();
-                        vidasreset --;
-                        if (vidasreset == 0)
-                        {
-                            //explocion.Play();
-                             Destroy(this.gameObject);
-                        }
+                        Destroy(this.gameObject);
                     }
-                    StopCoroutine("nelly");
-                    gameObject.transform.position = new Vector3 (Random.Range(-75,75), 100, 0);
-                    movVert = -20;
-                   // humo.Stop();
-                    vida = 100;
-                    if (true)
-                    {
-                        Invoke("LLamaCorru", 2.5f);
-                    }
-                    
-                   // gameObject.transform.position += new Vector3(0, movVert + -20 * Time.deltaTime , 0);
-                   // Destroy(gameObject);
-                   // Debug.Log ("exploto :v");
                 }
-            Debug.Log(vidasreset);
+                Invoke("Reaparece",0.5f);
+            }
+            
                 
                
-            }
+        }
     }
+
+
+    void Reaparece()
+    {
+        StopCoroutine("nelly");
+        gameObject.transform.position = new Vector3 (Random.Range(-75,75), 100, 0);
+        movVert = -20;
+        humo.Stop();
+        explocion.Stop();
+        vida = 100;
+        if (true)
+        {
+            Invoke("LLamaCorru", 2.5f);
+        }
+    }
+
+
     public void DisparoEnemigo()
     {
         balasenemigas = Instantiate(bala, canon.GetComponent<Transform>().position, Quaternion.identity);
         balasenemigas.transform.parent = null;
-       // balaenemigo.PlayOneShot(balaE);
+        balaenemigo.PlayOneShot(balaE);
         balasenemigas.name = "balasenemigas";
         Destroy(balasenemigas, 1.5f);
     }
@@ -127,8 +131,10 @@ public class enemigo : MonoBehaviour
             movVert = -50;
             gameObject.transform.position += new Vector3 ( 0, movVert* Time.deltaTime,0);
         }
-       
-       
+        if (vida == 0)
+        {
+            explocion.Play();
+        }
         if (gameObject.transform.position.y <= -110)
         {
             gameObject.transform.position = new Vector3 (Random.Range(-75,75), 100, 0);

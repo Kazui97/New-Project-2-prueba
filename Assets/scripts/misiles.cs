@@ -40,8 +40,9 @@ public class misiles : MonoBehaviour
     }
     void PruebaReaparece()
     {
-        gameObject.transform.position = new Vector3 (Random.Range(-100,100), 150,0);
          explocion.Stop();
+        gameObject.transform.position = new Vector3 (Random.Range(-100,100), 150,0);
+        
             
     }
     void Sonido()

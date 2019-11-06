@@ -54,7 +54,6 @@ public class enemigo2 : MonoBehaviour
             {
                 if (vida == 0)
                 {
-                   // humo.Stop();
                     fuego.Stop();
                     vidarestantes--;
                     if (vidarestantes == 0)
@@ -66,18 +65,13 @@ public class enemigo2 : MonoBehaviour
                 StopCoroutine("nelly");
                 gameObject.transform.position = new Vector3(Random.Range(-75, 75), 106, 0);
                 movVert = -35;
-                // humo.Stop();
                 vida = 100;
                 if (true)
                 {
                     Invoke("LLamaCorru", 3.5f);
                 }
-
-                // gameObject.transform.position += new Vector3(0, movVert + -20 * Time.deltaTime , 0);
-                // Destroy(gameObject);
-                // Debug.Log ("exploto :v");
             }
-            Debug.Log(vida + "avion2");
+           
 
 
         }
@@ -85,7 +79,6 @@ public class enemigo2 : MonoBehaviour
     void DisparoEnenmigo()
     {
         balasenemigas = Instantiate(bala, canon1.GetComponent<Transform>().position, Quaternion.identity);
-       // balasenemigas = Instantiate(bala ,canon2.GetComponent<Transform>().position, Quaternion.identity);
         balasenemigas.transform.parent = null;
         balasenemigas.name = "balasEnemigas2";
         Destroy(balasenemigas, 1.5f);
@@ -120,7 +113,7 @@ public class enemigo2 : MonoBehaviour
             if(vida <= 50)
             {
                 fuego.Play();
-                //humo.Play();
+                
             }
            
         }
@@ -132,7 +125,7 @@ public class enemigo2 : MonoBehaviour
     {
        
         Moverenemigo();
-        //print(temp);
+        
 
     }
 }

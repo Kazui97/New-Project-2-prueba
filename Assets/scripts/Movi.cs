@@ -55,6 +55,22 @@ public class Movi : MonoBehaviour
             vidasrestantes--;
             ActualizardorUI();
         }
+        if (col.gameObject.GetComponent<Jefe>())
+        {
+            escudo.Play();
+            puedehacerdaño = false;
+            Invoke("ActivarDaño",3);
+            vidasrestantes--;
+            ActualizardorUI();
+        }
+        if (col.gameObject.GetComponent<balajefe>())
+        {
+            escudo.Play();
+            puedehacerdaño = false;
+            Invoke("ActivarDaño",3);
+            vidasrestantes--;
+            ActualizardorUI();
+        }
         if(col.gameObject.GetComponent<balaenemiga>())
         {
             escudo.Play();

@@ -13,14 +13,15 @@ public class enemigo2 : MonoBehaviour
     float vida = 300;
     public GameObject bala;
     public GameObject canon1;
-  //  public GameObject canon2;
+    public AudioClip sonibala;
     GameObject balasenemigas;
-    public ParticleSystem fuego;
-    //public ParticleSystem humo;
+    public ParticleSystem explocion;
+    
 
-
+    AudioSource sonib;
     void Start()
     {
+        sonib = GetComponent<AudioSource>();
         m = Random.Range(0, 2);
         Invoke("LLamaCorru", 35);
         Invoke("LlamadoTiro", 30);
@@ -54,32 +55,44 @@ public class enemigo2 : MonoBehaviour
             {
                 if (vida == 0)
                 {
-                    fuego.Stop();
+                    
                     vidarestantes--;
                     if (vidarestantes == 0)
                     {
-                        Destroy(this.gameObject);
+                        explocion.Play();
+                        Invoke("explodestru", 1);
                     }
 
                 }
-                StopCoroutine("nelly");
-                gameObject.transform.position = new Vector3(Random.Range(-75, 75), 106, 0);
-                movVert = -35;
-                vida = 100;
-                if (true)
-                {
-                    Invoke("LLamaCorru", 3.5f);
-                }
+                Invoke("Reaparece", 1);
             }
            
 
 
         }
     }
+
+    void explodestru()
+    {
+        Destroy(this.gameObject);
+    }
+    void Reaparece()
+    {
+        StopCoroutine("nelly");
+        gameObject.transform.position = new Vector3(Random.Range(-75, 75), 106, 0);
+        movVert = -35;
+        explocion.Stop();
+        vida = 100;
+        if (true)
+        {
+            Invoke("LLamaCorru", 3.5f);
+        }
+    }
     void DisparoEnenmigo()
     {
         balasenemigas = Instantiate(bala, canon1.GetComponent<Transform>().position, Quaternion.identity);
         balasenemigas.transform.parent = null;
+        sonib.PlayOneShot(sonibala);
         balasenemigas.name = "balasEnemigas2";
         Destroy(balasenemigas, 1.5f);
     }
@@ -110,9 +123,9 @@ public class enemigo2 : MonoBehaviour
             {
                 gameObject.transform.position -= new Vector3(mov * Time.deltaTime, 0, 0);
             }
-            if(vida <= 50)
+            if(vida == 0)
             {
-                fuego.Play();
+                explocion.Play();
                 
             }
            

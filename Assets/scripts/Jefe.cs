@@ -6,10 +6,10 @@ public class Jefe : MonoBehaviour
 { 
     int mov = 20;
     int m;
-    int movVert = -5;
+    int movVert = -30;
     int temp;
     //int vidarestantes = 3;
-    float vida = 500;
+    float vida = 700;
     public GameObject municion1;
     public GameObject municion2;
     public GameObject municion3;
@@ -22,15 +22,16 @@ public class Jefe : MonoBehaviour
     GameObject bala2;
     GameObject bala3;
     GameObject bala4;
-    public ParticleSystem fuego;
-    //public ParticleSystem humo;
-
+    public ParticleSystem explocion;
+    public AudioClip sonidobala;
+    AudioSource balasonido;
 
     void Start()
     {
+        balasonido = GetComponent<AudioSource>();
         m = Random.Range(0, 2);
-        Invoke("LLamaCorru", 35);
-        Invoke("LlamadoTiro", 30);
+        Invoke("LLamaCorru", 65);
+        Invoke("LlamadoTiro", 60);
     }
 
     void LLamaCorru()
@@ -52,39 +53,48 @@ public class Jefe : MonoBehaviour
 
 
      public void OnCollisionEnter(Collision col)
-    {
+     {
         if (col.gameObject.GetComponent<bala>())
         {
             vida -= 10;
 
             if (vida == 0)
             {
-                Destroy(this.gameObject);
+                explocion.Play();
+                Invoke("ExploDestruir", 1);
             }
            
 
 
         }
+     }
+    void ExploDestruir()
+    {
+        Destroy(this.gameObject);
     }
     void DisparoEnenmigo()
     {
         bala1 = Instantiate(municion1, canon1.GetComponent<Transform>().position, Quaternion.identity);
         bala1.transform.parent = null;
+        balasonido.PlayOneShot(sonidobala);
         bala1.transform.eulerAngles = new Vector3(180,0,0);
         bala1.name = "balasEnemigas2";
         Destroy(bala1, 1.5f);
         bala2 = Instantiate(municion2, canon2.GetComponent<Transform>().position, Quaternion.identity);
         bala2.transform.parent = null;
+        balasonido.PlayOneShot(sonidobala);
         bala2.transform.eulerAngles = new Vector3(180,0,0);
         bala2.name = "balasEnemigas2";
         Destroy(bala2, 1.5f);
         bala3 = Instantiate(municion3, canon3.GetComponent<Transform>().position, Quaternion.identity);
         bala3.transform.parent = null;
+        balasonido.PlayOneShot(sonidobala);
         bala3.transform.eulerAngles = new Vector3(180,0,0);
         bala3.name = "balasEnemigas2";
         Destroy(bala3, 1.5f);
         bala4 = Instantiate(municion4, canon4.GetComponent<Transform>().position, Quaternion.identity);
         bala4.transform.parent = null;
+        balasonido.PlayOneShot(sonidobala);
         bala4.transform.eulerAngles = new Vector3(180,0,0);
         bala4.name = "balasEnemigas2";
         Destroy(bala4, 1.5f);
@@ -116,12 +126,7 @@ public class Jefe : MonoBehaviour
             {
                 gameObject.transform.position -= new Vector3(mov * Time.deltaTime, 0, 0);
             }
-            if(vida <= 50)
-            {
-                fuego.Play();
-                
-            }
-           
+
         }
 
 

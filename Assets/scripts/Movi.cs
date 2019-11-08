@@ -5,15 +5,16 @@ using UnityEngine.UI;
 
 public class Movi : MonoBehaviour
 {
-    public float vel = 20;
+    public float vel = 30;
     public GameObject bala;
     public GameObject canon;
     GameObject balas;
     public AudioClip sonidobala;
     public ParticleSystem escudo;
     public ParticleSystem chispas;
+    public ParticleSystem explo;
     public Text vida;
-    int vidasrestantes = 3;
+    int vidasrestantes = 100;
     public bool puedehacerdaño = true;
 
     AudioSource audiobala;
@@ -38,6 +39,7 @@ public class Movi : MonoBehaviour
             Invoke("ActivarDaño",3);
             vidasrestantes--;
             ActualizardorUI();
+            vidacero();
         }
         if(col.gameObject.GetComponent<enemigo>())
         {
@@ -46,6 +48,7 @@ public class Movi : MonoBehaviour
             Invoke("ActivarDaño",3);
             vidasrestantes--;
             ActualizardorUI();
+            vidacero();
         }
         if(col.gameObject.GetComponent<enemigo2>())
         {
@@ -54,6 +57,7 @@ public class Movi : MonoBehaviour
             Invoke("ActivarDaño",3);
             vidasrestantes--;
             ActualizardorUI();
+            vidacero();
         }
         if (col.gameObject.GetComponent<Jefe>())
         {
@@ -62,6 +66,7 @@ public class Movi : MonoBehaviour
             Invoke("ActivarDaño",3);
             vidasrestantes--;
             ActualizardorUI();
+            vidacero();
         }
         if (col.gameObject.GetComponent<balajefe>())
         {
@@ -70,6 +75,7 @@ public class Movi : MonoBehaviour
             Invoke("ActivarDaño",3);
             vidasrestantes--;
             ActualizardorUI();
+            vidacero();
         }
         if(col.gameObject.GetComponent<balaenemiga>())
         {
@@ -78,9 +84,22 @@ public class Movi : MonoBehaviour
             Invoke("ActivarDaño",3);
             vidasrestantes--;
             ActualizardorUI();
+            vidacero();
         }
        
        // Destroy(this.gameObject);
+    }
+    void vidacero()
+    {
+        if (vidasrestantes == 0)
+        {
+            explo.Play();
+            Invoke("destruir", 1);
+        }
+    }
+    void destruir()
+    {
+        Destroy(this.gameObject);
     }
     void ActivarDaño()
     {
@@ -122,7 +141,19 @@ public class Movi : MonoBehaviour
         }
         if (gameObject.transform.position.y <= -74f)
         {
-            Destroy(this.gameObject);
+            explo.Play();
+            Invoke("destruir", 1);
+
+        }
+        if (gameObject.transform.position.x <= -147f)
+        {
+            explo.Play();
+            Invoke("destruir", 1);
+        }
+        if(gameObject.transform.position.x >= 147f)
+        {
+            explo.Play();
+            Invoke("destruir", 1);
         }
     }
     
@@ -134,7 +165,6 @@ public class Movi : MonoBehaviour
             audiobala.PlayOneShot(sonidobala);
             chispas.Play();
             balas = Instantiate(bala , canon.GetComponent<Transform>().position,Quaternion.identity);
-//            balas.AddComponent<Rigidbody>().AddForce(transform.up*2000);
             balas.transform.parent = null;
             balas.name = "balas";
             Destroy(balas, 1.5f);

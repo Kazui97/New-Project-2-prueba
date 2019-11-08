@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class enemigo : MonoBehaviour
 {
-    Vector3 pos = new Vector3 (0,0,0);
+   
     int mov = 15;
     int m;
     int movVert = -20;
@@ -20,7 +20,7 @@ public class enemigo : MonoBehaviour
 
     private void Awake()
     {
-        
+     
     }
     void Start()
     {
@@ -66,8 +66,10 @@ public class enemigo : MonoBehaviour
                     {
                         Destroy(this.gameObject);
                     }
+
+                    Invoke("Reaparece", 0.5f);
                 }
-                Invoke("Reaparece",0.5f);
+                
             }
             
                 
@@ -89,7 +91,7 @@ public class enemigo : MonoBehaviour
             Invoke("LLamaCorru", 2.5f);
         }
     }
-
+    
 
     public void DisparoEnemigo()
     {
@@ -140,6 +142,7 @@ public class enemigo : MonoBehaviour
             gameObject.transform.position = new Vector3 (Random.Range(-75,75), 100, 0);
            
         }
+
     }
     void Update()
     {

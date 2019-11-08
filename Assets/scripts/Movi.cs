@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Movi : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class Movi : MonoBehaviour
     public Text vida;
     int vidasrestantes = 100;
     public bool puedehacerdaño = true;
+    
+
 
     AudioSource audiobala;
     private void Awake()
@@ -94,10 +97,19 @@ public class Movi : MonoBehaviour
         if (vidasrestantes == 0)
         {
             explo.Play();
-            Invoke("destruir", 1);
+            Invoke("Destruir", 1);
+            Invoke("Finjuego", 1f);
+           // Time.timeScale = 0; // para juego
         }
     }
-    void destruir()
+
+    void Finjuego()
+    {
+        if(vidasrestantes  == 0)
+        SceneManager.LoadScene("fingano");
+    }
+   
+    void Destruir()
     {
         Destroy(this.gameObject);
     }
@@ -178,10 +190,10 @@ public class Movi : MonoBehaviour
             //Destroy(bala,1.5f);
         }
         //bala.transform.position += new Vector3(0, 10, 0);
-        
-        
-           
-          
+
+
+
+       
         
         Movimiento();
     }

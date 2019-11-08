@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Jefe : MonoBehaviour
 { 
@@ -62,6 +63,9 @@ public class Jefe : MonoBehaviour
             {
                 explocion.Play();
                 Invoke("ExploDestruir", 1);
+                
+                if (vida == 0)
+                    Escenafinal();
             }
            
 
@@ -71,6 +75,13 @@ public class Jefe : MonoBehaviour
     void ExploDestruir()
     {
         Destroy(this.gameObject);
+       
+    }
+    void Escenafinal()
+    {
+        if (vida == 0)
+            SceneManager.LoadScene("finperdio");
+       
     }
     void DisparoEnenmigo()
     {
@@ -136,7 +147,7 @@ public class Jefe : MonoBehaviour
     {
        
         Moverenemigo();
-        
+       
 
     }
 

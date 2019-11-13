@@ -153,19 +153,38 @@ public class Movi : MonoBehaviour
         }
         if (gameObject.transform.position.y <= -74f)
         {
-            explo.Play();
-            Invoke("destruir", 1);
+            
+            if (!puedehacerdaño)
+        return;
+            escudo.Play();
+            puedehacerdaño = false;
+            Invoke("ActivarDaño",3);
+            vidasrestantes--;
+            ActualizardorUI();
+            vidacero();
 
         }
         if (gameObject.transform.position.x <= -147f)
         {
-            explo.Play();
-            Invoke("destruir", 1);
+             if (!puedehacerdaño)
+        return;
+            escudo.Play();
+            puedehacerdaño = false;
+            Invoke("ActivarDaño",3);
+            vidasrestantes--;
+            ActualizardorUI();
+            vidacero();
         }
         if(gameObject.transform.position.x >= 147f)
         {
-            explo.Play();
-            Invoke("destruir", 1);
+              if (!puedehacerdaño)
+        return;
+            escudo.Play();
+            puedehacerdaño = false;
+            Invoke("ActivarDaño",3);
+            vidasrestantes--;
+            ActualizardorUI();
+            vidacero();
         }
     }
     

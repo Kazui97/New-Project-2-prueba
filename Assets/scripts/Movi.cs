@@ -8,30 +8,35 @@ using UnityEngine.SceneManagement;
 public class Movi : MonoBehaviour
 {
     public float vel;
+    public GameObject mil;
     public GameObject bala;
     public GameObject canon;
+    public GameObject canon2;
     GameObject balas;
+    GameObject misil;
     public AudioClip sonidobala;
+    public AudioClip sonidomisil;
     public ParticleSystem escudo;
     public ParticleSystem chispas;
     public ParticleSystem explo;
     public Text vida;
     int vidasrestantes = 100;
     public bool puedehacerdaño = true;
-    Rigidbody ridi;
+    public FixedJoystick joystick;
     
 
 
     AudioSource audiobala;
+    AudioSource misilaudio;
     private void Awake()
     {
         audiobala = GetComponent<AudioSource>();
+        misilaudio = GetComponent<AudioSource>();
     }
 
     void Start()
     {
         vida.text = "vidas:  " + vidasrestantes;
-        ridi = GetComponent<Rigidbody>();
         
     }
     public void OnCollisionEnter(Collision col)
@@ -132,6 +137,12 @@ public class Movi : MonoBehaviour
 
     public void Movimiento()
     {
+
+        Vector2 joystickdirec = joystick.Direction * vel *Time.deltaTime;
+        transform.position -= new Vector3(joystickdirec.x,0,0);
+        transform.position -= new Vector3(0,joystickdirec.y,0);
+
+
         if ( Input.GetKey(KeyCode.W))
         {
            
@@ -191,36 +202,35 @@ public class Movi : MonoBehaviour
         }
     }
     
-    void Joystick()
-    {
-       
-    }
    
     void Update()
-    {
+    {    
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            audiobala.PlayOneShot(sonidobala);
+            disparot();
+        } 
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Misil();
+        }
+        Movimiento();
+    }
+    public void disparot()
+    {
+        audiobala.PlayOneShot(sonidobala);
             chispas.Play();
             balas = Instantiate(bala , canon.GetComponent<Transform>().position,Quaternion.identity);
             balas.transform.parent = null;
             balas.name = "balas";
             Destroy(balas, 1.5f);
-
-        
-
-           // bala = Instantiate(bala, gameObject.transform);   //-------------------------- forma que no borra balas :,v --------------------------- \\
-            // bala.transform.position = gameObject.transform.position;
-           // bala.transform.parent = null;
-           // bala.name = "bala";
-            //Destroy(bala,1.5f);
-        }
-        //bala.transform.position += new Vector3(0, 10, 0);
-
-
-
-       
-        
-        Movimiento();
+    }
+    public void Misil()
+    {
+        misilaudio.PlayOneShot(sonidomisil);
+        chispas.Play();
+        misil = Instantiate(mil , canon2.GetComponent<Transform>().position,Quaternion.identity);
+        misil.transform.parent = null;
+        misil.name = "misil";
+        Destroy(misil,1);
     }
 }

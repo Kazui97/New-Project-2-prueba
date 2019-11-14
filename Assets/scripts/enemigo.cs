@@ -75,6 +75,31 @@ public class enemigo : MonoBehaviour
                 
                
         }
+        if (col.gameObject.GetComponent<misillll>())
+        {   
+            vida -= 20;
+                
+            if (vida == 0)
+            {
+                
+                if(vida == 0)
+                {
+                    explocion.Stop();
+                    humo.Stop();
+                    vidasreset --;
+                    if (vidasreset == 0)
+                    {
+                        Destroy(this.gameObject);
+                    }
+
+                    Invoke("Reaparece", 0.5f);
+                }
+                
+            }
+            
+                
+               
+        }
     }
 
 

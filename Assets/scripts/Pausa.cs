@@ -15,11 +15,18 @@ public class Pausa : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
+       if (Input.GetKeyDown(KeyCode.Escape))
+       {
+           Pausaprueba();
+       }
+    }
+    public void Pausaprueba()
+    {
+        
+        
             active = !active;
             Canvas.enabled = active;
             Time.timeScale = (active) ? 0 : 1f;
-        }
+        
     }
 }

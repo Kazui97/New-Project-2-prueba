@@ -71,6 +71,22 @@ public class Jefe : MonoBehaviour
 
 
         }
+        if (col.gameObject.GetComponent<misillll>())
+        {
+            vida -= 20;
+
+            if (vida == 0)
+            {
+                explocion.Play();
+                Invoke("ExploDestruir", 1);
+                
+                if (vida == 0)
+                    Escenafinal();
+            }
+           
+
+
+        }
      }
     void ExploDestruir()
     {

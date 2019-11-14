@@ -70,6 +70,29 @@ public class enemigo2 : MonoBehaviour
 
 
         }
+        if (col.gameObject.GetComponent<misillll>())
+        {
+            vida -= 20;
+
+            if (vida == 0)
+            {
+                if (vida == 0)
+                {
+                    
+                    vidarestantes--;
+                    if (vidarestantes == 0)
+                    {
+                        explocion.Play();
+                        Invoke("explodestru", 1);
+                    }
+
+                }
+                Invoke("Reaparece", 1);
+            }
+           
+
+
+        }
     }
 
     void explodestru()

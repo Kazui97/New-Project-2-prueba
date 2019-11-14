@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
 public class Movi : MonoBehaviour
 {
-    public float vel = 30;
+    public float vel;
     public GameObject bala;
     public GameObject canon;
     GameObject balas;
@@ -17,6 +18,7 @@ public class Movi : MonoBehaviour
     public Text vida;
     int vidasrestantes = 100;
     public bool puedehacerdaño = true;
+    Rigidbody ridi;
     
 
 
@@ -29,6 +31,7 @@ public class Movi : MonoBehaviour
     void Start()
     {
         vida.text = "vidas:  " + vidasrestantes;
+        ridi = GetComponent<Rigidbody>();
         
     }
     public void OnCollisionEnter(Collision col)
@@ -169,6 +172,10 @@ public class Movi : MonoBehaviour
         }
     }
     
+    void Joystick()
+    {
+       
+    }
    
     void Update()
     {

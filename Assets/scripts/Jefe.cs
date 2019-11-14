@@ -87,6 +87,7 @@ public class Jefe : MonoBehaviour
 
 
         }
+        Debug.Log(vida);
      }
     void ExploDestruir()
     {

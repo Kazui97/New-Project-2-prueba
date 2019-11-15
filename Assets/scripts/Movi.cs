@@ -20,7 +20,7 @@ public class Movi : MonoBehaviour
     public ParticleSystem chispas;
     public ParticleSystem explo;
     public Text vida;
-    int vidasrestantes = 100;
+    int vidasrestantes = 5;
     public bool puedehacerdaño = true;
     public FixedJoystick joystick;
     
@@ -139,7 +139,7 @@ public class Movi : MonoBehaviour
     {
 
         Vector2 joystickdirec = joystick.Direction * vel *Time.deltaTime;
-        transform.position -= new Vector3(joystickdirec.x,0,0);
+        transform.position += new Vector3(joystickdirec.x,0,0);
         transform.position -= new Vector3(0,joystickdirec.y,0);
 
 
